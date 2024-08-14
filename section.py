@@ -1,5 +1,8 @@
 import category
+import tkinter as tk
 
 class Section:
-    def __init__():
-        #todo: finish class
+    def __init__(self, root):
+        self.title = tk.StringVar()
+        
+        

@@ -8,26 +8,16 @@ if int(v[0]) >= 3:
 else:
     raise Exception(f"Python 3.X or higher is required. You currently have Python {v}")
 
+# class Section:
+#     def _init_(self)
+
 def main():
     root = tk.Tk()
     root.title("Resume Builder")
     root.minsize(width = 400, height = 400)
     root.maxsize(width = 1000, height = 1000)
     
-    # Step 2: Create frames to hold the Text widgets
-    frame1 = tk.Frame(root)
-    frame1.pack(fill=tk.BOTH, expand=True)
 
-    frame2 = tk.Frame(root)
-    frame2.pack(fill=tk.BOTH, expand=True)
-
-    # Step 3: Add Text widgets to each frame
-    text_widget1 = tk.Text(frame1, height=5, width=40)
-    text_widget1.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-    text_widget2 = tk.Text(frame2, height=5, width=40)
-    text_widget2.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-    
     # text = tk.Text(root, width = 400, height = 400)
     # text.pack()
 
@@ -62,6 +52,7 @@ def save(text):
     file.close()
 
 def save_as(text):
+    # prompt to save each of the entries within a text file
     file = fd.asksaveasfile(mode = 'w', defaultextension = '.txt')
     t = text.get(0.0, tk.END)
     t = t.rstrip()
