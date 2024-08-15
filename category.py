@@ -19,3 +19,4 @@ class Category:
     
     def add_section(category):
         #todo: add function to append a section to list
+        return

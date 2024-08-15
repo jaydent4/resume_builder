@@ -8,8 +8,8 @@ if int(v[0]) >= 3:
 else:
     raise Exception(f"Python 3.X or higher is required. You currently have Python {v}")
 
-# class Section:
-#     def _init_(self)
+from category import Category
+from section import Section
 
 def main():
     root = tk.Tk()
@@ -18,6 +18,7 @@ def main():
     root.maxsize(width = 1000, height = 1000)
     
 
+    s = Section(root)
     # text = tk.Text(root, width = 400, height = 400)
     # text.pack()
 
