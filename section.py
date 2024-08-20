@@ -1,8 +1,7 @@
-import category
 import tkinter as tk
 
 class Section:
-    def __init__(self, root):
+    def __init__(self, root, position_before):
         self.title = tk.StringVar()
         self.subtitle = tk.StringVar()
         self.time = tk.StringVar()
@@ -11,7 +10,7 @@ class Section:
 
         # Create a frame
         self.frame = tk.Frame(root, bd = 2, relief = "raised")
-        self.frame.pack(padx = 10, pady = 10, fill = 'x', expand = True)
+        self.frame.pack(before = position_before, padx = 10, pady = 10, fill = 'x', expand = True)
 
         # Create a title entry box
         self.title_label = tk.Label(self.frame, text = "Title")
@@ -51,4 +50,4 @@ class Section:
         # Add a description to a section
         self.new_description = tk.Text(frame, width = 10, height = 5)
         self.descriptions.append(self.new_description)
-        self.new_description.pack(before = self.add_description_button, anchor = 'w', expand = True, fill = 'x', padx = 5, pady = 5) 
+        self.new_description.pack(before = self.add_description_button, anchor = 'w', expand = True, fill = 'x', padx = 5, pady = 5)

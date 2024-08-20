@@ -3,7 +3,6 @@ import sys
 v = sys.version
 if int(v[0]) >= 3:
     import tkinter as tk
-    from tkinter import ttk
     from tkinter import filedialog as fd
 else:
     raise Exception(f"Python 3.X or higher is required. You currently have Python {v}")
@@ -16,25 +15,32 @@ def main():
     root.title("Resume Builder")
     root.minsize(width = 400, height = 400)
     root.maxsize(width = 1000, height = 1000)
-    
 
-    s = Section(root)
-    # text = tk.Text(root, width = 400, height = 400)
-    # text.pack()
+    # Create frame to hold scrollbar and input frames
+    main_frame = tk.Frame(root)
+    main_frame.pack(fill = tk.BOTH, expand = True)
 
-    # text2 = tk.Text(root, width = 100, height = 100)
-    # text2.pack()
+    # Create canvas to hold frame for input frames
+    canvas = tk.Canvas(root)
+    canvas.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
 
-    # mb = tk.Menu(root)
-    # filemenu = tk.Menu(mb)
-    # filemenu.add_command(label = "New File", command = lambda: new_file(text))
-    # filemenu.add_command(label = "Save", command = lambda: save(text))
-    # filemenu.add_command(label = "Save As", command = lambda: save_as(text))
-    # filemenu.add_command(label = "Open File", command = lambda: open_file(text))
-    # filemenu.add_command(label = "Quit", command = lambda: root.quit(text))
-    # mb.add_cascade(label = "File", menu = filemenu)
+    # Create scrollbar
+    scrollbar = tk.Scrollbar(main_frame, orient = tk.VERTICAL, command = canvas.yview)
+    scrollbar.pack(side = tk.RIGHT, fill = tk.Y)
 
-    # root.config(menu = mb)
+    # Configure scrollbar to the canvas
+    canvas.configure(yscrollcommand = scrollbar.set)
+    canvas.bind('<Configure>', lambda x: canvas.configure(scrollregion = canvas.bbox("all")))
+
+    # Create frame to hold all inputs
+    input_frame = tk.Frame(canvas)
+    input_frame.pack(fill = tk.BOTH, expand = True)
+
+    # Add input frame to a window in canvas
+    canvas.create_window((0, 0), window = input_frame, anchor = 'nw')
+
+    cat = Category(input_frame)
+
     root.mainloop()
 
 
