@@ -36,15 +36,17 @@ class Section:
         self.location_entry = tk.Entry(self.frame, textvariable = self.location)
         self.location_entry.pack(anchor = 'w', padx = 5, pady = (5,5))
 
-        # Add one description text box
+        # Create label for descriptions section
         self.descriptions_label = tk.Label(self.frame, text = "Description")
         self.descriptions_label.pack(anchor = 'w', pady = (10, 5))
-        self.starting_textbox = tk.Text(self.frame, width = 10, height = 5)
-        self.starting_textbox.pack(expand = True, fill = 'x', padx = 5, pady = 5)
 
         # Add button to add a description text box
         self.add_description_button = tk.Button(self.frame, text = "Add Description", command = lambda: self.add_description(self.frame))
         self.add_description_button.pack(anchor = 'w', padx = 5, pady = (5, 10))
+
+        self.add_description(self.frame)
+
+
     
     def add_description(self, frame):
         # Add a description to a section

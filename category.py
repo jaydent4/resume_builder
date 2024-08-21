@@ -25,7 +25,6 @@ class Category:
         self.list = tk.Text(self.frame, width = 10, height = 5)
         self.list.pack(anchor = 'w', padx = 5, pady = (5, 10), fill = 'x', expand = True)
 
-
         # Create button for sections
         self.sections_label = tk.Label(self.frame, text = "Sections")
         self.sections_label.pack(anchor = 'w', padx = 5, pady = (5, 5))
@@ -35,3 +34,9 @@ class Category:
     def add_section(self, frame):
         self.new_section = Section(frame, self.add_section_button)
         self.sections.append(self.new_section)
+        self.update_scrollable_region()
+    
+    def update_scrollable_region(self):
+        canvas = self.frame.master.master
+        canvas.update_ideltasks()
+        canvas.configure(scrollregion = canvas.bbox("all"))

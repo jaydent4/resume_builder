@@ -14,14 +14,16 @@ def main():
     root = tk.Tk()
     root.title("Resume Builder")
     root.minsize(width = 400, height = 400)
-    root.maxsize(width = 1000, height = 1000)
+    max_width = root.winfo_screenwidth()
+    max_height = root.winfo_screenheight()
+    root.maxsize(width = max_width, height = max_height)
 
     # Create frame to hold scrollbar and input frames
     main_frame = tk.Frame(root)
-    main_frame.pack(fill = tk.BOTH, expand = True)
+    main_frame.pack(fill = tk.BOTH, expand = True, padx = 5, pady = 5)
 
     # Create canvas to hold frame for input frames
-    canvas = tk.Canvas(root)
+    canvas = tk.Canvas(main_frame)
     canvas.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
 
     # Create scrollbar
@@ -34,7 +36,6 @@ def main():
 
     # Create frame to hold all inputs
     input_frame = tk.Frame(canvas)
-    input_frame.pack(fill = tk.BOTH, expand = True)
 
     # Add input frame to a window in canvas
     canvas.create_window((0, 0), window = input_frame, anchor = 'nw')
