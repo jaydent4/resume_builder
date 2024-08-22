@@ -40,7 +40,11 @@ def main():
     # Add input frame to a window in canvas
     canvas.create_window((0, 0), window = input_frame, anchor = 'nw')
 
-    cat = Category(input_frame)
+    cat1 = Category(input_frame)
+    cat1.insert_category(0, 0)
+
+    cat2 = Category(input_frame)
+    cat2.insert_category(1, 0)
 
     root.mainloop()
 
