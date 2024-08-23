@@ -10,6 +10,10 @@ class Section:
 
         # Create a frame
         self.frame = tk.Frame(root, bd = 2, relief = "raised")
+        
+        # Set frame grid
+        for i in range(30):
+            self.frame.grid_columnconfigure(i, weight = 1)
 
         # Create a title entry box
         self.title_label = tk.Label(self.frame, text = "Title")
@@ -33,39 +37,34 @@ class Section:
         # Add button to add a description text box
         self.add_description_button = tk.Button(self.frame, text = "Add Description", command = lambda: self.add_description(self.frame))
 
-        self.add_description(self.frame)
+        # Place all widgets in the frame
+        self.title_label.grid(row=0, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
+        self.title_entry.grid(row=0, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
+        
+        self.subtitle_label.grid(row=1, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
+        self.subtitle_entry.grid(row=1, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
+        
+        self.time_label.grid(row=2, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
+        self.time_entry.grid(row=2, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
+        
+        self.location_label.grid(row=3, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
+        self.location_entry.grid(row=3, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
+
+        self.descriptions_label.grid(row=4, column=0, sticky="w", padx=(5, 2), pady=(10, 2))
+        self.add_description_button.grid(row=5, column=0, pady=(5, 2))
 
     def insert_section(self, grid_row, grid_col):
         # Place frame in the specified position
-        self.frame.grid(row = grid_row, column = grid_col)
-
-        # Place all other widgets in the frame
-        self.title_label.grid(row = 0, column = 0)
-        self.title_entry.grid(row = 1, column = 0)
-        self.subtitle_label.grid(row = 2, column = 0)
-        self.subtitle_entry.grid(row = 3, column = 0)
-        self.time_label.grid(row = 4, column = 0)
-        self.time_entry.grid(row = 5, column = 0)
-        self.location_label.grid(row = 6, column = 0)
-        self.location_entry.grid(row = 7, column = 0)
-        self.descriptions_label.grid(row = 8, column = 0)
-        self.add_description_button.grid(row = 9, column = 0)
+        self.frame.grid(row = grid_row, column = grid_col, sticky = "ew", padx = (5, 5), pady = (5, 5))
     
     def add_description(self, frame):
         # Add a description to a section
         self.new_description = tk.Text(frame, width = 10, height = 5)
+        curr_button_row = self.add_description_button.grid_info()["row"]
         
-        # Move the add_descriptions_button down one row
-        button_position = self.add_description_button.grid_info()
-        print(button_position)
-        # current_button_row = button_position["row"]
-        # self.add_description_button.grid(current_button_row + 1, 0)
+        # Move add_description_button down one row
+        self.add_description_button.grid(row = curr_button_row + 1, column = 0)
 
-        # # Placing new_description into the section frame
-        # if len(self.descriptions) != 0: # place new_description under location_entry if there are no description text boxes currently
-        #     self.new_description.grid(row = 9, column = 0)
-        # else: # place new_description under the last description text box
-        #     current_last_row = self.descriptions[-1].grid_info().get('row', 0)
-        #     self.new_description.grid(row = current_last_row + 1, column = 0)
-    
+        # Add new_description above the button
+        self.new_description.grid(row = curr_button_row, column = 0, sticky = "ew", columnspan = 30)
         self.descriptions.append(self.new_description)

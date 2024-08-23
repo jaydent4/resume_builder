@@ -13,17 +13,17 @@ from section import Section
 def main():
     root = tk.Tk()
     root.title("Resume Builder")
-    root.minsize(width = 400, height = 400)
+    root.minsize(width = 1000, height = 1000)
     max_width = root.winfo_screenwidth()
     max_height = root.winfo_screenheight()
     root.maxsize(width = max_width, height = max_height)
 
     # Create frame to hold scrollbar and input frames
-    main_frame = tk.Frame(root)
+    main_frame = tk.Frame(root, bg = "yellow")
     main_frame.pack(fill = tk.BOTH, expand = True, padx = 5, pady = 5)
 
     # Create canvas to hold frame for input frames
-    canvas = tk.Canvas(main_frame)
+    canvas = tk.Canvas(main_frame, bg = "purple")
     canvas.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
 
     # Create scrollbar
@@ -35,19 +35,19 @@ def main():
     canvas.bind('<Configure>', lambda x: canvas.configure(scrollregion = canvas.bbox("all")))
 
     # Create frame to hold all inputs
-    input_frame = tk.Frame(canvas)
+    input_frame = tk.Frame(canvas, bg = "blue")
 
     # Add input frame to a window in canvas
-    canvas.create_window((0, 0), window = input_frame, anchor = 'nw')
+    canvas_window = canvas.create_window((0, 0), window = input_frame, anchor = 'nw')
+    canvas.bind('<Configure>', lambda e: canvas.itemconfig(canvas_window, width=canvas.winfo_width()))
+
+    input_frame.grid_rowconfigure(0, weight = 1)
+    input_frame.grid_columnconfigure(0, weight = 1)
 
     cat1 = Category(input_frame)
     cat1.insert_category(0, 0)
 
-    cat2 = Category(input_frame)
-    cat2.insert_category(1, 0)
-
     root.mainloop()
-
 
 # Create a new file; change name and delete current text
 def new_file(text):
