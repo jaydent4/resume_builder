@@ -40,16 +40,12 @@ class Section:
         # Place all widgets in the frame
         self.title_label.grid(row=0, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
         self.title_entry.grid(row=0, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
-        
         self.subtitle_label.grid(row=1, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
         self.subtitle_entry.grid(row=1, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
-        
         self.time_label.grid(row=2, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
         self.time_entry.grid(row=2, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
-        
         self.location_label.grid(row=3, column=0, sticky="w", padx=(5, 2), pady=(5, 2))
         self.location_entry.grid(row=3, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
-
         self.descriptions_label.grid(row=4, column=0, sticky="w", padx=(5, 2), pady=(10, 2))
         self.add_description_button.grid(row=5, column=0, pady=(5, 2))
 
@@ -68,3 +64,9 @@ class Section:
         # Add new_description above the button
         self.new_description.grid(row = curr_button_row, column = 0, sticky = "ew", columnspan = 30)
         self.descriptions.append(self.new_description)
+        self.update_scrollable_region()
+
+    def update_scrollable_region(self):
+        self.frame.update_idletasks()
+        c = self.frame.master.master.master
+        c.configure(scrollregion=c.bbox("all"))

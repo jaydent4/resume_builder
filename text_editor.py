@@ -49,6 +49,20 @@ def main():
 
     root.mainloop()
 
+def add_category(root, category_list):
+    new_cat = Category(root)
+    new_cat.insert_category()
+    category_list.append(new_cat)
+    update_scrollable_region()
+
+
+# Update scrollable area for dynamically added frames
+def update_scrollable_region(root, canvas):
+    root.update_idletasks()
+    canvas.configure(scrollregion=canvas.bbox("all"))
+
+
+
 # Create a new file; change name and delete current text
 def new_file(text):
     global filename

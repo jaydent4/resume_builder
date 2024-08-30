@@ -49,7 +49,9 @@ class Category:
         # Insert the new section
         self.new_section.insert_section(curr_button_row, 0)
         self.sections.append(self.new_section)
-        self.update_position()
+        self.update_scrollable_region()
     
-    def update_position(self):
-        return
+    def update_scrollable_region(self):
+        self.frame.update_idletasks()
+        c = self.frame.master.master
+        c.configure(scrollregion=c.bbox("all"))
