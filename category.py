@@ -34,9 +34,7 @@ class Category:
     
     def insert_category(self, grid_row, grid_col):
         # Place frame in the specified position
-        self.frame.grid(row = grid_row, column = grid_col, padx = 5, pady = 5, sticky = "news")
-        self.frame.grid_rowconfigure(0, weight = 1)
-        self.frame.grid_columnconfigure(0, weight = 1)
+        self.frame.grid(row = grid_row, column = grid_col, padx = 5, pady = 5, sticky = "news", columnspan = 30)
         self.add_section(self.frame)
  
     def add_section(self, frame):

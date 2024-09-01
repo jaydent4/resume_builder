@@ -9,6 +9,7 @@ else:
 
 from category import Category
 from section import Section
+from resumestructure import ResumeStructure
 
 def main():
     root = tk.Tk()
@@ -32,35 +33,23 @@ def main():
 
     # Configure scrollbar to the canvas
     canvas.configure(yscrollcommand = scrollbar.set)
-    canvas.bind('<Configure>', lambda x: canvas.configure(scrollregion = canvas.bbox("all")))
+    canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion = canvas.bbox("all")))
 
     # Create frame to hold all inputs
-    input_frame = tk.Frame(canvas, bg = "blue")
+    main_frame = ResumeStructure(canvas)
 
     # Add input frame to a window in canvas
-    canvas_window = canvas.create_window((0, 0), window = input_frame, anchor = 'nw')
+    canvas_window = canvas.create_window((0, 0), window = main_frame.frame, anchor = 'nw')
     canvas.bind('<Configure>', lambda e: canvas.itemconfig(canvas_window, width=canvas.winfo_width()))
 
-    input_frame.grid_rowconfigure(0, weight = 1)
-    input_frame.grid_columnconfigure(0, weight = 1)
-
-    cat1 = Category(input_frame)
-    cat1.insert_category(0, 0)
 
     root.mainloop()
-
-def add_category(root, category_list):
-    new_cat = Category(root)
-    new_cat.insert_category()
-    category_list.append(new_cat)
-    update_scrollable_region()
 
 
 # Update scrollable area for dynamically added frames
 def update_scrollable_region(root, canvas):
     root.update_idletasks()
     canvas.configure(scrollregion=canvas.bbox("all"))
-
 
 
 # Create a new file; change name and delete current text
