@@ -32,10 +32,17 @@ class Category:
         self.sections_label.grid(row = 4, column = 0, sticky = "ew")
         self.add_section_button.grid(row = 5, column = 0)
     
+    def delete_category(self):
+        # Delete all sections
+        for section in self.sections:
+            section.delete_section()
+
+        # Delete frame and its children
+        self.frame.destroy()
+    
     def insert_category(self, grid_row, grid_col):
         # Place frame in the specified position
         self.frame.grid(row = grid_row, column = grid_col, padx = 5, pady = 5, sticky = "news", columnspan = 30)
-        self.add_section(self.frame)
  
     def add_section(self, frame):
         self.new_section = Section(frame)

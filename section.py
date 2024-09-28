@@ -48,6 +48,15 @@ class Section:
         self.location_entry.grid(row=3, column=1, sticky="ew", padx=(2, 5), pady=(5, 2))
         self.descriptions_label.grid(row=4, column=0, sticky="w", padx=(5, 2), pady=(10, 2))
         self.add_description_button.grid(row=5, column=0, pady=(5, 2))
+    
+    def delete_section(self):
+        # Delete all descriptions
+        while self.descriptions:
+            description = self.descriptions.pop()
+            description.destroy()
+
+        # Delete the frame and its children
+        self.frame.destroy()
 
     def insert_section(self, grid_row, grid_col):
         # Place frame in the specified position

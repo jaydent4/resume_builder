@@ -54,6 +54,20 @@ class ResumeStructure:
         self.frame.update_idletasks()
         c = self.frame.master
         c.configure(scrollregion=c.bbox("all"))
+
+    def clear_resume(self):
+        # Clear entries
+        self.name_entry_text.set("")
+        self.subheading_text.set("")
+
+        # Empty and delete categories and its children
+        for category in self.categories:
+            category.delete_category()
+        
+        
+
+        
+        
     
 
 

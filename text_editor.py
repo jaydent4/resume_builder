@@ -10,6 +10,7 @@ else:
 from category import Category
 from section import Section
 from resumestructure import ResumeStructure
+import menu_options as mo
 
 def main():
     root = tk.Tk()
@@ -42,7 +43,13 @@ def main():
     canvas_window = canvas.create_window((0, 0), window = main_frame.frame, anchor = 'nw')
     canvas.bind('<Configure>', lambda e: canvas.itemconfig(canvas_window, width=canvas.winfo_width()))
 
+    menubar = tk.Menu(root)
+    file = tk.Menu(menubar, tearoff=0)
+    menubar.add_cascade(label="File", menu=file)
+    file.add_command(label="New File", command=lambda: mo.new_file(main_frame))
 
+
+    root.config(menu=menubar)
     root.mainloop()
 
 
