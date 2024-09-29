@@ -3,6 +3,8 @@ import tkinter as tk
 
 class ResumeStructure:
     def __init__(self, root):
+        self.filename = "Untitled"
+
         # Initialize variables
         self.name_entry_text = tk.StringVar()
         self.subheading_text = tk.StringVar()
@@ -56,6 +58,9 @@ class ResumeStructure:
         c.configure(scrollregion=c.bbox("all"))
 
     def clear_resume(self):
+        # Clear filename
+        self.filename = "Untitled"
+
         # Clear entries
         self.name_entry_text.set("")
         self.subheading_text.set("")
