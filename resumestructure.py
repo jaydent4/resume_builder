@@ -35,9 +35,6 @@ class ResumeStructure:
         self.subheading_entry.grid(row = 1, column = 1)
         self.add_category_button.grid(row = 2, column = 0)
 
-    def insert_resume_structure(self, gridrow, gridcol):
-        self.frame.grid(row = gridrow, column = gridcol)
-
     def add_category(self, frame):
         # Create a new category
         self.new_cat = Category(frame)
