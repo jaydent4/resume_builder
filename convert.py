@@ -17,9 +17,10 @@ def convert_section(sec: Section) -> dict:
     descriptions_list = []
     for description in sec.descriptions:
         t = description.get(0.0, tk.END).strip()
-        if t == "":
+        if t:
             descriptions_list.append(t)
     sec_dict["descriptions"] = descriptions_list
+    return sec_dict
 
 
 def convert_category(cat: Category) -> dict:
@@ -35,6 +36,7 @@ def convert_category(cat: Category) -> dict:
         sec_dict = convert_section(section)
         section_list.append(sec_dict)
     cat_dict["sections"] = section_list
+    return cat_dict
     
 def parse_resume(resume: ResumeStructure) -> dict:
     res_dict = {}
