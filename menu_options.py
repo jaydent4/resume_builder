@@ -5,6 +5,28 @@ import json
 
 ACCEPTED_FILETYPE = [("JSON files", "*.json")]
 
+section_schema = {
+    "title": str,
+    "subtitle": str,
+    "time": str,
+    "location": str,
+    "descriptions": list
+}
+
+category_schema = {
+    "title": str,
+    "list": str,
+    "sections": list
+}
+
+base_schema = {
+    "name": str,
+    "subheading": str,
+    "categories": list
+}
+
+schema = [base_schema, category_schema, section_schema]
+
 # Clear the resume
 def new_file(resume):
     resume.clear_resume()
@@ -29,15 +51,24 @@ def open_file(root, resume):
     try:
         with fd.askopenfile(mode='r', filetypes=ACCEPTED_FILETYPE) as file:
             resume_data = json.load(file)
-            
-
     except json.JSONDecodeError:
         print("ERROR: wrong json format")
-    except KeyError as e:
-        print(f"ERROR: Missing {e} attribute")
-            
-def validate(data):
-    return
+    validate(resume_data)
+    resume.clear_resume()
+
+def validate(data, level=0):
+    if level == 3:
+        for description in data:
+            if not isinstance(description, str):
+                raise ValueError(f"Non-string value is stored in descriptions.")
+    for key, type in schema[level]:
+        if key not in data:
+            raise KeyError(f"Missing key: {key}")
+        if not isinstance(data[key], type):
+            raise ValueError(f"{key} is mapped to {type(data[key])}. {key} must be mapped to {type}.")
+        if type is list:
+            for item in data[key]:
+                validate(item, level + 1)
 
 
 # # Create a new file; change name and delete current text
