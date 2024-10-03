@@ -2,6 +2,7 @@ from resumestructure import ResumeStructure
 import convert
 from tkinter import filedialog as fd
 import json
+import tkinter as tk
 
 ACCEPTED_FILETYPE = [("JSON files", "*.json")]
 
@@ -47,7 +48,7 @@ def save(resume):
         file = open(resume.filename, 'w')
         json.dump(convert.parse_resume(resume), file, indent=4)
 
-def open_file(root, resume):
+def open_file(resume):
     try:
         with fd.askopenfile(mode='r', filetypes=ACCEPTED_FILETYPE) as file:
             resume_data = json.load(file)
@@ -55,13 +56,18 @@ def open_file(root, resume):
         print("ERROR: wrong json format")
     validate(resume_data)
     resume.clear_resume()
+    fill(resume_data, resume)
 
 def validate(data, level=0):
+    # Check descriptions
     if level == 3:
         for description in data:
             if not isinstance(description, str):
                 raise ValueError(f"Non-string value is stored in descriptions.")
-    for key, type in schema[level]:
+        return
+            
+    # Compare to schema of the current data level of the json
+    for key, type in schema[level].items():
         if key not in data:
             raise KeyError(f"Missing key: {key}")
         if not isinstance(data[key], type):
@@ -70,33 +76,31 @@ def validate(data, level=0):
             for item in data[key]:
                 validate(item, level + 1)
 
+def fill(data, resume):
 
-# # Create a new file; change name and delete current text
-# def new_file(text):
-#     global filename
-#     filename = "Untitled"
-#     text.delete(0.0, tk.END)
+    # Insert section information
+    def fill_section(data, section):
+        section.title.set(data["title"])
+        section.subtitle.set(data["subtitle"])
+        section.time.set(data["time"])
+        section.location.set(data["location"])
+        num_descriptions = len(data["descriptions"])
+        for i in range(num_descriptions):
+            section.add_description(section.frame)
+            section.descriptions[i].insert(tk.INSERT, data["descriptions"][i])
 
-# # Save current file 
-# def save(text):
-#     global filename
-#     t = text.get(0.0, tk.END)
-#     file = open(filename, 'w')
-#     file.write(t)
-#     file.close()
-
-# def save_as(text):
-#     # prompt to save each of the entries within a text file
-#     file = fd.asksaveasfile(mode = 'w', defaultextension = '.txt')
-#     t = text.get(0.0, tk.END)
-#     t = t.rstrip()
-#     try:
-#         file.write(t)
-#     except: # should never reach this point
-#         tk.showerror(Title="ERROR", message ="Unable to save file")
-
-# def open_file(text):
-#     f = fd.askopenfile(mode='r')
-#     t = f.read()
-#     text.delete(0.0, tk.END)
-#     text.insert(0.0, t)
+    # Insert category information
+    def fill_category(data, category):
+        category.title.set(data["title"])
+        category.list.insert(tk.INSERT, data["list"])
+        num_sections = len(data["sections"])
+        for i in range(num_sections):
+            category.add_section(category.frame)
+            fill_section(data["sections"][i], category.sections[i])
+    
+    resume.name.set(data["name"])
+    resume.subheading.set(data["subheading"])
+    num_categories = len(data["categories"])
+    for i in range(num_categories):
+        resume.add_category(resume.frame)
+        fill_category(data["categories"][i], resume.categories[i])
