@@ -6,8 +6,8 @@ class ResumeStructure:
         self.filename = "Untitled"
 
         # Initialize variables
-        self.name_entry_text = tk.StringVar()
-        self.subheading_text = tk.StringVar()
+        self.name = tk.StringVar()
+        self.subheading = tk.StringVar()
         self.categories = []
 
         # Create a frame
@@ -15,12 +15,11 @@ class ResumeStructure:
 
         # Create entry for name
         self.name_label = tk.Label(self.frame, text = "Name")
-        self.name_entry = tk.Entry(self.frame, text = self.name_entry_text)
+        self.name_entry = tk.Entry(self.frame, text = self.name)
 
         # Create entry for subheading
         self.subheading_label = tk.Label(self.frame, text = "Subheading")
-        self.subheading_entry = tk.Entry(self.frame, text = self.subheading_text)
-
+        self.subheading_entry = tk.Entry(self.frame, text = self.subheading)
         # Create a button to add a category
         self.add_category_button = tk.Button(self.frame, text = "Add Category", command = lambda: self.add_category(self.frame))
 
@@ -59,12 +58,13 @@ class ResumeStructure:
         self.filename = "Untitled"
 
         # Clear entries
-        self.name_entry_text.set("")
-        self.subheading_text.set("")
+        self.name.set("")
+        self.subheading.set("")
 
         # Empty and delete categories and its children
         for category in self.categories:
             category.delete_category()
+        self.categories.clear()
         
         
 
