@@ -54,7 +54,7 @@ class Section:
         while self.descriptions:
             description = self.descriptions.pop()
             description.destroy()
-
+        self.descriptions.clear()
         # Delete the frame and its children
         self.frame.destroy()
 

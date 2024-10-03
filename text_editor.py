@@ -49,6 +49,7 @@ def main():
     file.add_command(label="New File", command=lambda: mo.new_file(resume))
     file.add_command(label="Save As", command=lambda: mo.save_as(resume))
     file.add_command(label="Save", command=lambda: mo.save(resume))
+    file.add_command(label="Open File", command=lambda: mo.open_file(resume))
 
 
     root.config(menu=menubar)

@@ -36,7 +36,7 @@ class Category:
         # Delete all sections
         for section in self.sections:
             section.delete_section()
-
+        self.sections.clear()
         # Delete frame and its children
         self.frame.destroy()
     
