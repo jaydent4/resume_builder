@@ -7,6 +7,7 @@ class Category:
     def __init__(self, root):
 
         self.title = tk.StringVar()
+        self.marked_for_delete = tk.IntVar()
         self.sections = []
 
         # Create a frame
@@ -24,9 +25,13 @@ class Category:
         self.sections_label = tk.Label(self.frame, text = "Sections")
         self.add_section_button = tk.Button(self.frame, text = "Add Section", command = lambda: self.add_section(self.frame))
 
+        # Create a checkbox to delete this category
+        self.checkbox = tk.Checkbutton(self.frame, variable=self.marked_for_delete, onvalue=1, offvalue=0)
+
         # Place all entries within the frame
         self.title_label.grid(row = 0, column = 0, sticky = "ew")
         self.title_entry.grid(row = 1, column = 0, sticky = "ew")
+        self.checkbox.grid(row=0, column=1)
         self.list_label.grid(row = 2, column = 0, sticky = "ew")
         self.list.grid(row = 3, column = 0, padx = 5, pady = 5, sticky = "ew")
         self.sections_label.grid(row = 4, column = 0, sticky = "ew")
